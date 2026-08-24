@@ -41,20 +41,29 @@ export function initHeader() {
         </button>
       </div>
     </div>
+  `;
 
-    <div class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-      <a href="/tools/" class="${getActive('/tools/')}">🛠️ Tools</a>
-      <a href="/tools/#categories">📂 Categories</a>
-      <a href="/services/" class="${getActive('/services/')}">💼 Services</a>
-      <a href="/blog/" class="${getActive('/blog/')}">📚 Resources</a>
-      <a href="/about/" class="${getActive('/about/')}">👤 About</a>
-      <a href="/contact/" class="btn btn--accent btn--lg">Hire Me</a>
-    </div>
+  // Create mobile nav as a sibling AFTER the header (not inside it)
+  let mobileNav = document.getElementById('mobile-nav');
+  if (!mobileNav) {
+    mobileNav = document.createElement('div');
+    mobileNav.className = 'mobile-nav';
+    mobileNav.id = 'mobile-nav';
+    mobileNav.setAttribute('aria-label', 'Mobile navigation');
+    header.after(mobileNav);
+  }
+
+  mobileNav.innerHTML = `
+    <a href="/tools/" class="${getActive('/tools/')}">🛠️ Tools</a>
+    <a href="/tools/#categories">📂 Categories</a>
+    <a href="/services/" class="${getActive('/services/')}">💼 Services</a>
+    <a href="/blog/" class="${getActive('/blog/')}">📚 Resources</a>
+    <a href="/about/" class="${getActive('/about/')}">👤 About</a>
+    <a href="/contact/" class="btn btn--accent btn--lg">Hire Me</a>
   `;
 
   // Mobile menu toggle
   const menuBtn = document.getElementById('menu-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
 
   menuBtn?.addEventListener('click', () => {
     const isOpen = mobileNav.classList.toggle('active');
@@ -63,7 +72,7 @@ export function initHeader() {
   });
 
   // Close mobile nav on link click
-  mobileNav?.querySelectorAll('a').forEach(link => {
+  mobileNav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       mobileNav.classList.remove('active');
       menuBtn.setAttribute('aria-expanded', 'false');
@@ -71,3 +80,4 @@ export function initHeader() {
     });
   });
 }
+
