@@ -106,12 +106,11 @@
   inset: 0;
   top: var(--header-height);
   z-index: var(--z-modal);
-  background: rgba(9, 13, 22, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--color-bg, #090d16);
   padding: var(--space-6);
   flex-direction: column;
   gap: var(--space-2);
+  overflow-y: auto;
   animation: mobileNavIn 0.2s ease;
 }
 
