@@ -1,6 +1,7 @@
 {
   "name": "geeta-tech-hub",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "description": "Free Web Tools & Professional Web Services — Geeta Tech Hub",
   "scripts": {
