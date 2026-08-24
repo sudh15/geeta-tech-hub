@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%2306b6d4%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2756%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3EG%3C/text%3E%3C/svg%3E">
+  <title>Password Generator Online — Secure & Free | Geeta Tech Hub</title>
+  <meta name="description" content="Generate secure random passwords with custom length and character types. All processing happens in your browser.">
+  <link rel="canonical" href="https://geetatechhub.com/tools/password-generator/">
+  <meta property="og:title" content="Password Generator Online — Secure & Free | Geeta Tech Hub">
+  <meta property="og:description" content="Generate secure random passwords with custom length and character types.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/tools.css">
+</head>
+<body>
+  <header class="header" id="site-header"></header>
+  <main>
+    <section class="tool-page">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/">Tools</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/#utilities">Utilities</a><span class="breadcrumb__sep">›</span>
+          <span class="breadcrumb__current">Password Generator</span>
+        </div>
+        <div class="tool-page__header">
+          <h1 class="tool-page__title">🔑 Password Generator</h1>
+          <p class="tool-page__desc">Generate secure random passwords with custom length and complexity.</p>
+        </div>
+
+        <div class="tool-page__grid">
+          <div class="tool-page__main">
+            <!-- Generated Password Display -->
+            <div style="position:relative; margin-bottom: var(--space-6);">
+              <input type="text" class="input" id="pw-output" readonly style="font-family: var(--font-mono); font-size: var(--text-xl); padding: var(--space-5); padding-right: 100px; letter-spacing: 0.05em; background: var(--color-surface-2);" aria-label="Generated password">
+              <button class="btn btn--primary btn--sm" id="pw-copy" style="position:absolute; right:8px; top:50%; transform:translateY(-50%);">📋 Copy</button>
+            </div>
+
+            <!-- Strength Indicator -->
+            <div style="margin-bottom: var(--space-6);">
+              <div style="display:flex;justify-content:space-between;margin-bottom:var(--space-2);">
+                <span class="text-sm text-muted">Strength</span>
+                <span class="text-sm" id="pw-strength-label" style="font-weight:600;">Strong</span>
+              </div>
+              <div style="height:6px;background:var(--color-surface-2);border-radius:var(--radius-full);overflow:hidden;">
+                <div id="pw-strength-bar" style="height:100%;width:80%;background:var(--color-success);border-radius:var(--radius-full);transition:all 0.3s;"></div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="tool-controls">
+              <div class="tool-controls__row">
+                <span class="tool-controls__label">Length: <strong id="pw-length-val">16</strong></span>
+                <input type="range" class="range" id="pw-length" min="4" max="64" value="16" style="flex:1;margin-left:var(--space-4);">
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: var(--space-3);">
+                <label style="display:flex;align-items:center;gap:var(--space-2);cursor:pointer;font-size:var(--text-sm);color:var(--color-text-secondary);">
+                  <input type="checkbox" id="pw-upper" checked> Uppercase (A-Z)
+                </label>
+                <label style="display:flex;align-items:center;gap:var(--space-2);cursor:pointer;font-size:var(--text-sm);color:var(--color-text-secondary);">
+                  <input type="checkbox" id="pw-lower" checked> Lowercase (a-z)
+                </label>
+                <label style="display:flex;align-items:center;gap:var(--space-2);cursor:pointer;font-size:var(--text-sm);color:var(--color-text-secondary);">
+                  <input type="checkbox" id="pw-numbers" checked> Numbers (0-9)
+                </label>
+                <label style="display:flex;align-items:center;gap:var(--space-2);cursor:pointer;font-size:var(--text-sm);color:var(--color-text-secondary);">
+                  <input type="checkbox" id="pw-symbols" checked> Symbols (!@#$)
+                </label>
+              </div>
+            </div>
+
+            <button class="btn btn--primary btn--lg btn--full" id="pw-generate" style="margin-top: var(--space-6);">🔄 Generate Password</button>
+          </div>
+
+          <div class="tool-page__sidebar">
+            <div class="privacy-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Generated using crypto.getRandomValues(). Never sent to any server.
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-content">
+          <h2>Why Use a Password Generator?</h2>
+          <p>Strong, unique passwords are essential for online security. This generator uses the browser's cryptographic random number generator (crypto.getRandomValues) to create passwords that are truly random and secure.</p>
+          <h2>How to Use</h2>
+          <p>Adjust the password length and select which character types to include. Click "Generate Password" to create a new password. Click "Copy" to copy it to your clipboard.</p>
+        </div>
+
+        <div class="related-tools">
+          <h2 class="related-tools__title">You May Also Like</h2>
+          <div class="grid grid-auto-fill" id="related-tools-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module">
+    import { initToolPage } from '/src/js/tools/shared.js';
+    import { copyToClipboard, showToast } from '/src/js/core/utils.js';
+    initToolPage('password-generator');
+
+    const outputEl = document.getElementById('pw-output');
+    const lengthSlider = document.getElementById('pw-length');
+    const lengthVal = document.getElementById('pw-length-val');
+    const strengthBar = document.getElementById('pw-strength-bar');
+    const strengthLabel = document.getElementById('pw-strength-label');
+
+    const charSets = {
+      upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      lower: 'abcdefghijklmnopqrstuvwxyz',
+      numbers: '0123456789',
+      symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?',
+    };
+
+    function generate() {
+      const len = parseInt(lengthSlider.value);
+      let chars = '';
+      if (document.getElementById('pw-upper').checked) chars += charSets.upper;
+      if (document.getElementById('pw-lower').checked) chars += charSets.lower;
+      if (document.getElementById('pw-numbers').checked) chars += charSets.numbers;
+      if (document.getElementById('pw-symbols').checked) chars += charSets.symbols;
+
+      if (!chars) { showToast('Select at least one character type.', 'error'); return; }
+
+      const arr = new Uint32Array(len);
+      crypto.getRandomValues(arr);
+      let password = '';
+      for (let i = 0; i < len; i++) {
+        password += chars[arr[i] % chars.length];
+      }
+      outputEl.value = password;
+      updateStrength(password);
+    }
+
+    function updateStrength(pw) {
+      let score = 0;
+      if (pw.length >= 8) score++;
+      if (pw.length >= 12) score++;
+      if (pw.length >= 20) score++;
+      if (/[A-Z]/.test(pw)) score++;
+      if (/[a-z]/.test(pw)) score++;
+      if (/[0-9]/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+      const levels = [
+        { min: 0, label: 'Very Weak', color: 'var(--color-error)', pct: 15 },
+        { min: 2, label: 'Weak', color: 'var(--color-error)', pct: 30 },
+        { min: 3, label: 'Fair', color: 'var(--color-warning)', pct: 50 },
+        { min: 5, label: 'Strong', color: 'var(--color-success)', pct: 75 },
+        { min: 6, label: 'Very Strong', color: '#10b981', pct: 100 },
+      ];
+
+      let level = levels[0];
+      for (const l of levels) { if (score >= l.min) level = l; }
+      strengthBar.style.width = level.pct + '%';
+      strengthBar.style.background = level.color;
+      strengthLabel.textContent = level.label;
+      strengthLabel.style.color = level.color;
+    }
+
+    lengthSlider.addEventListener('input', () => {
+      lengthVal.textContent = lengthSlider.value;
+      generate();
+    });
+
+    document.querySelectorAll('#pw-upper, #pw-lower, #pw-numbers, #pw-symbols').forEach(cb => {
+      cb.addEventListener('change', generate);
+    });
+
+    document.getElementById('pw-generate').addEventListener('click', generate);
+    document.getElementById('pw-copy').addEventListener('click', () => {
+      if (outputEl.value) copyToClipboard(outputEl.value);
+    });
+
+    // Generate on load
+    generate();
+  </script>
+</body>
+</html>

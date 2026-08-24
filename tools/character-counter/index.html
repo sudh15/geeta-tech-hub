@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%2306b6d4%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2756%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3EG%3C/text%3E%3C/svg%3E">
+  <title>Character Counter Online — Free & Instant | Geeta Tech Hub</title>
+  <meta name="description" content="Count characters with and without spaces online for free. Check social media character limits instantly.">
+  <link rel="canonical" href="https://geetatechhub.com/tools/character-counter/">
+  <meta property="og:title" content="Character Counter Online — Free & Instant | Geeta Tech Hub">
+  <meta property="og:description" content="Count characters with and without spaces online for free. Check social media character limits.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/tools.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Character Counter","url":"https://geetatechhub.com/tools/character-counter/","description":"Count characters with and without spaces online for free.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+  </script>
+</head>
+<body>
+  <header class="header" id="site-header"></header>
+  <main>
+    <section class="tool-page">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/">Tools</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/#text">Text Tools</a><span class="breadcrumb__sep">›</span>
+          <span class="breadcrumb__current">Character Counter</span>
+        </div>
+        <div class="tool-page__header">
+          <h1 class="tool-page__title">🔤 Character Counter</h1>
+          <p class="tool-page__desc">Count characters with and without spaces. Track limits for Twitter, Meta and more.</p>
+        </div>
+
+        <div class="tool-page__grid">
+          <div class="tool-page__main">
+            <textarea class="textarea" id="cc-input" rows="10" placeholder="Paste or type your text here..." aria-label="Text input for character counting" style="font-family: var(--font-family); min-height: 200px;"></textarea>
+
+            <div class="tool-stats" id="cc-stats" style="margin-top: var(--space-6);">
+              <div class="tool-stat"><div class="tool-stat__value" id="cc-chars">0</div><div class="tool-stat__label">Characters</div></div>
+              <div class="tool-stat"><div class="tool-stat__value" id="cc-no-space">0</div><div class="tool-stat__label">Without Spaces</div></div>
+              <div class="tool-stat"><div class="tool-stat__value" id="cc-words">0</div><div class="tool-stat__label">Words</div></div>
+              <div class="tool-stat"><div class="tool-stat__value" id="cc-lines">0</div><div class="tool-stat__label">Lines</div></div>
+            </div>
+
+            <!-- Social Media Limits -->
+            <div style="margin-top: var(--space-6);">
+              <h3 style="font-size: var(--text-base); margin-bottom: var(--space-4); color: var(--color-text-secondary);">Social Media Limits</h3>
+              <div style="display: flex; flex-direction: column; gap: var(--space-3);" id="cc-limits"></div>
+            </div>
+
+            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3);">
+              <button class="btn btn--secondary btn--sm" id="cc-copy">📋 Copy Stats</button>
+              <button class="btn btn--ghost btn--sm" id="cc-clear">Clear</button>
+            </div>
+          </div>
+
+          <div class="tool-page__sidebar">
+            <div class="privacy-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Your text is processed in your browser. Nothing is uploaded.
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-content">
+          <h2>What is a Character Counter?</h2>
+          <p>A character counter counts the exact number of characters in your text, including or excluding spaces. It helps you stay within character limits for social media posts, meta descriptions, SMS messages and more.</p>
+          <h2>How to Use</h2>
+          <p>Paste or type your text in the text area above. Character counts update in real time. Check the social media limits section to see if your text fits popular platform requirements.</p>
+        </div>
+
+        <div class="related-tools">
+          <h2 class="related-tools__title">You May Also Like</h2>
+          <div class="grid grid-auto-fill" id="related-tools-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module">
+    import { initToolPage } from '/src/js/tools/shared.js';
+    import { copyToClipboard } from '/src/js/core/utils.js';
+    initToolPage('character-counter');
+
+    const input = document.getElementById('cc-input');
+    const limits = [
+      { name: 'Twitter / X Post', max: 280 },
+      { name: 'Instagram Caption', max: 2200 },
+      { name: 'Facebook Post', max: 63206 },
+      { name: 'LinkedIn Post', max: 3000 },
+      { name: 'YouTube Title', max: 100 },
+      { name: 'Meta Description', max: 160 },
+      { name: 'Google Title Tag', max: 60 },
+    ];
+
+    function update() {
+      const text = input.value;
+      const chars = text.length;
+      document.getElementById('cc-chars').textContent = chars.toLocaleString();
+      document.getElementById('cc-no-space').textContent = text.replace(/\s/g, '').length.toLocaleString();
+      document.getElementById('cc-words').textContent = (text.trim() ? text.trim().split(/\s+/).length : 0).toLocaleString();
+      document.getElementById('cc-lines').textContent = (text ? text.split('\n').length : 0).toLocaleString();
+
+      const limitsHtml = limits.map(l => {
+        const pct = Math.min((chars / l.max) * 100, 100);
+        const over = chars > l.max;
+        const color = over ? 'var(--color-error)' : pct > 80 ? 'var(--color-warning)' : 'var(--color-success)';
+        return `<div style="display:flex;align-items:center;gap:var(--space-3);">
+          <span style="min-width:140px;font-size:var(--text-sm);color:var(--color-text-secondary);">${l.name}</span>
+          <div style="flex:1;height:6px;background:var(--color-surface-2);border-radius:var(--radius-full);overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:${color};border-radius:var(--radius-full);transition:width 0.2s;"></div>
+          </div>
+          <span style="min-width:70px;text-align:right;font-size:var(--text-xs);font-family:var(--font-mono);color:${over ? 'var(--color-error)' : 'var(--color-text-muted)'};">${chars} / ${l.max}</span>
+        </div>`;
+      }).join('');
+      document.getElementById('cc-limits').innerHTML = limitsHtml;
+    }
+
+    input.addEventListener('input', update);
+    update();
+
+    document.getElementById('cc-copy').addEventListener('click', () => {
+      const text = input.value;
+      copyToClipboard(`Characters: ${text.length}\nWithout Spaces: ${text.replace(/\s/g, '').length}\nWords: ${text.trim() ? text.trim().split(/\s+/).length : 0}\nLines: ${text ? text.split('\n').length : 0}`);
+    });
+
+    document.getElementById('cc-clear').addEventListener('click', () => {
+      input.value = '';
+      update();
+      input.focus();
+    });
+  </script>
+</body>
+</html>

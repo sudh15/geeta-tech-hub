@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%2306b6d4%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2756%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3EG%3C/text%3E%3C/svg%3E">
+  <title>Image Converter Online — JPG, PNG, WebP | Geeta Tech Hub</title>
+  <meta name="description" content="Convert images between JPG, PNG, WebP and BMP formats online for free. Browser-based, no upload required.">
+  <link rel="canonical" href="https://geetatechhub.com/tools/image-converter/">
+  <meta property="og:title" content="Image Converter Online — JPG, PNG, WebP | Geeta Tech Hub">
+  <meta property="og:description" content="Convert images between JPG, PNG, WebP and BMP formats online for free.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/tools.css">
+</head>
+<body>
+  <header class="header" id="site-header"></header>
+  <main>
+    <section class="tool-page">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/">Tools</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/#image">Image Tools</a><span class="breadcrumb__sep">›</span>
+          <span class="breadcrumb__current">Image Converter</span>
+        </div>
+        <div class="tool-page__header">
+          <h1 class="tool-page__title">🔄 Image Converter</h1>
+          <p class="tool-page__desc">Convert images between JPG, PNG, WebP and BMP formats.</p>
+        </div>
+
+        <div class="tool-page__grid">
+          <div class="tool-page__main">
+            <div class="dropzone" id="icv-dropzone">
+              <div class="dropzone__icon">📁</div>
+              <p class="dropzone__text">Drop your image here or click to upload</p>
+              <p class="dropzone__hint">Supports JPG, PNG, WebP, BMP, GIF</p>
+              <input type="file" id="icv-file" accept="image/*" aria-label="Upload image">
+            </div>
+
+            <div id="icv-editor" style="display:none; margin-top: var(--space-6);">
+              <div style="text-align:center;margin-bottom:var(--space-6);">
+                <img id="icv-preview" alt="Preview" style="max-width:100%;max-height:250px;border-radius:var(--radius-lg);border:1px solid var(--color-border);">
+                <p class="text-sm text-muted" style="margin-top:var(--space-2);"><span id="icv-info"></span></p>
+              </div>
+
+              <div class="tool-controls">
+                <div class="tool-controls__title">Convert To</div>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);">
+                  <button class="btn btn--secondary btn--sm icv-fmt active" data-fmt="image/jpeg" data-ext="jpg">JPG</button>
+                  <button class="btn btn--secondary btn--sm icv-fmt" data-fmt="image/png" data-ext="png">PNG</button>
+                  <button class="btn btn--secondary btn--sm icv-fmt" data-fmt="image/webp" data-ext="webp">WebP</button>
+                  <button class="btn btn--secondary btn--sm icv-fmt" data-fmt="image/bmp" data-ext="bmp">BMP</button>
+                </div>
+                <div class="tool-controls__row" style="margin-top:var(--space-3);" id="icv-quality-row">
+                  <span class="tool-controls__label">Quality</span>
+                  <span class="tool-controls__value" id="icv-quality-val">90%</span>
+                </div>
+                <input type="range" class="range" id="icv-quality" min="10" max="100" value="90" step="5">
+              </div>
+
+              <div style="display:flex;gap:var(--space-3);margin-top:var(--space-6);flex-wrap:wrap;">
+                <button class="btn btn--primary" id="icv-convert">🔄 Convert & Download</button>
+                <button class="btn btn--secondary" id="icv-reset">Upload Another</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-page__sidebar">
+            <div class="privacy-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Converted in your browser. Nothing is uploaded.
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-content">
+          <h2>What is an Image Converter?</h2>
+          <p>An image converter changes the file format of an image. For example, you can convert a PNG to JPG to reduce file size, or convert a JPG to WebP for better web performance.</p>
+        </div>
+
+        <div class="related-tools">
+          <h2 class="related-tools__title">You May Also Like</h2>
+          <div class="grid grid-auto-fill" id="related-tools-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module">
+    import { initToolPage } from '/src/js/tools/shared.js';
+    import { formatFileSize, showToast, downloadBlob } from '/src/js/core/utils.js';
+    initToolPage('image-converter');
+
+    const dropzone = document.getElementById('icv-dropzone');
+    const fileInput = document.getElementById('icv-file');
+    const editor = document.getElementById('icv-editor');
+    const qualitySlider = document.getElementById('icv-quality');
+    const qualityVal = document.getElementById('icv-quality-val');
+
+    let loadedImg = null;
+    let originalFile = null;
+    let selectedFmt = 'image/jpeg';
+    let selectedExt = 'jpg';
+
+    qualitySlider.addEventListener('input', () => { qualityVal.textContent = qualitySlider.value + '%'; });
+
+    dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', () => { if (fileInput.files[0]) loadFile(fileInput.files[0]); });
+
+    function loadFile(file) {
+      if (!file.type.startsWith('image/')) { showToast('Please upload an image.', 'error'); return; }
+      originalFile = file;
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        loadedImg = img;
+        document.getElementById('icv-preview').src = url;
+        document.getElementById('icv-info').textContent = `${file.name} • ${img.width}×${img.height} • ${formatFileSize(file.size)}`;
+        dropzone.style.display = 'none';
+        editor.style.display = 'block';
+      };
+      img.src = url;
+    }
+
+    document.querySelectorAll('.icv-fmt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.icv-fmt').forEach(b => b.classList.remove('active', 'btn--primary'));
+        btn.classList.add('active', 'btn--primary');
+        btn.classList.remove('btn--secondary');
+        selectedFmt = btn.dataset.fmt;
+        selectedExt = btn.dataset.ext;
+        // Quality only for lossy formats
+        const hasQuality = selectedFmt === 'image/jpeg' || selectedFmt === 'image/webp';
+        document.getElementById('icv-quality-row').style.display = hasQuality ? 'flex' : 'none';
+        qualitySlider.style.display = hasQuality ? 'block' : 'none';
+      });
+    });
+
+    document.getElementById('icv-convert').addEventListener('click', () => {
+      if (!loadedImg) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = loadedImg.width;
+      canvas.height = loadedImg.height;
+      const ctx = canvas.getContext('2d');
+      if (selectedFmt === 'image/jpeg') {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      ctx.drawImage(loadedImg, 0, 0);
+      const quality = parseInt(qualitySlider.value) / 100;
+      canvas.toBlob(blob => {
+        if (blob) {
+          const baseName = originalFile.name.replace(/\.[^.]+$/, '');
+          downloadBlob(blob, `${baseName}.${selectedExt}`);
+          showToast(`Converted to ${selectedExt.toUpperCase()}!`, 'success');
+        }
+      }, selectedFmt, quality);
+    });
+
+    document.getElementById('icv-reset').addEventListener('click', () => {
+      editor.style.display = 'none';
+      dropzone.style.display = 'block';
+      fileInput.value = '';
+      loadedImg = null;
+    });
+  </script>
+</body>
+</html>

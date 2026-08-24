@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%2306b6d4%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2756%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3EG%3C/text%3E%3C/svg%3E">
+  <title>Meta Description Generator — Free SEO Tool | Geeta Tech Hub</title>
+  <meta name="description" content="Generate compelling meta descriptions for SEO. Preview Google search results and optimize click-through rates.">
+  <link rel="canonical" href="https://geetatechhub.com/tools/meta-description-generator/">
+  <meta property="og:title" content="Meta Description Generator — Free SEO Tool | Geeta Tech Hub">
+  <meta property="og:description" content="Generate compelling meta descriptions for SEO. Preview Google search results.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/tools.css">
+</head>
+<body>
+  <header class="header" id="site-header"></header>
+  <main>
+    <section class="tool-page">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/">Tools</a><span class="breadcrumb__sep">›</span>
+          <a href="/tools/#seo">SEO Tools</a><span class="breadcrumb__sep">›</span>
+          <span class="breadcrumb__current">Meta Description Generator</span>
+        </div>
+        <div class="tool-page__header">
+          <h1 class="tool-page__title">🏷️ Meta Description Generator</h1>
+          <p class="tool-page__desc">Generate SEO-friendly meta descriptions for your web pages.</p>
+        </div>
+
+        <div class="tool-page__grid">
+          <div class="tool-page__main">
+            <div class="input-group">
+              <label class="label" for="md-topic">Page topic or title</label>
+              <input type="text" class="input" id="md-topic" placeholder="e.g. Image Compression for Websites" style="font-size:var(--text-lg);padding:var(--space-4);">
+            </div>
+
+            <div class="input-group" style="margin-top:var(--space-4);">
+              <label class="label" for="md-keywords">Keywords (comma-separated, optional)</label>
+              <input type="text" class="input" id="md-keywords" placeholder="e.g. image compression, optimize images, website speed">
+            </div>
+
+            <div class="input-group" style="margin-top:var(--space-4);">
+              <label class="label" for="md-type">Page type</label>
+              <select class="select" id="md-type">
+                <option value="tool">Online Tool</option>
+                <option value="blog">Blog Post</option>
+                <option value="service">Service Page</option>
+                <option value="product">Product Page</option>
+                <option value="landing">Landing Page</option>
+                <option value="about">About Page</option>
+              </select>
+            </div>
+
+            <button class="btn btn--primary" id="md-generate" style="margin-top:var(--space-6);">✨ Generate Descriptions</button>
+
+            <div id="md-results" style="display:none; margin-top:var(--space-8);">
+              <h3 style="font-size:var(--text-base);margin-bottom:var(--space-4);color:var(--color-text-secondary);">Generated Meta Descriptions</h3>
+              <div id="md-list" style="display:flex;flex-direction:column;gap:var(--space-4);"></div>
+
+              <!-- Google Preview -->
+              <div style="margin-top:var(--space-8);">
+                <h3 style="font-size:var(--text-base);margin-bottom:var(--space-4);color:var(--color-text-secondary);">Google Search Preview</h3>
+                <div style="background:#fff;padding:var(--space-6);border-radius:var(--radius-xl);max-width:600px;">
+                  <div style="font-size:13px;color:#202124;font-family:Arial,sans-serif;">
+                    <div style="font-size:14px;color:#1a0dab;margin-bottom:3px;cursor:pointer;" id="md-preview-title">Page Title — Your Website</div>
+                    <div style="font-size:12px;color:#006621;margin-bottom:3px;" id="md-preview-url">https://example.com/page-slug</div>
+                    <div style="font-size:13px;color:#545454;line-height:1.4;" id="md-preview-desc">Meta description will appear here...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-page__sidebar">
+            <div class="privacy-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Generated locally in your browser.
+            </div>
+            <div class="tool-controls">
+              <div class="tool-controls__title">Tips</div>
+              <ul style="font-size:var(--text-xs);color:var(--color-text-muted);list-style:none;display:flex;flex-direction:column;gap:var(--space-2);">
+                <li>✓ Keep between 120–160 characters</li>
+                <li>✓ Include a clear value proposition</li>
+                <li>✓ Use action-oriented language</li>
+                <li>✓ Include relevant keywords naturally</li>
+                <li>✗ Avoid keyword stuffing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="tool-content">
+          <h2>What is a Meta Description?</h2>
+          <p>A meta description is an HTML attribute that provides a brief summary of a web page. Search engines often display it in search results beneath the page title, influencing whether users click through to your page.</p>
+          <h2>How to Use</h2>
+          <p>Enter your page topic, optional keywords and page type. Click "Generate" to create several meta description options. Preview how they look in Google search results and copy your favorite.</p>
+        </div>
+
+        <div class="related-tools">
+          <h2 class="related-tools__title">You May Also Like</h2>
+          <div class="grid grid-auto-fill" id="related-tools-grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module">
+    import { initToolPage } from '/src/js/tools/shared.js';
+    import { copyToClipboard, showToast } from '/src/js/core/utils.js';
+    initToolPage('meta-description-generator');
+
+    const templates = {
+      tool: [
+        (t, k) => `${t} online for free. ${k ? `Fast ${k.split(',')[0].trim()} tool` : 'Fast browser-based tool'} with no login required. Get instant results.`,
+        (t, k) => `Use our free ${t.toLowerCase()} tool. ${k ? `${k.split(',')[0].trim().charAt(0).toUpperCase() + k.split(',')[0].trim().slice(1)}` : 'Process data'} directly in your browser — no sign-up needed.`,
+        (t, k) => `Free online ${t.toLowerCase()}. ${k ? `Quickly ${k.split(',')[0].trim()}` : 'Process your data'} without creating an account. Fast, private and browser-based.`,
+      ],
+      blog: [
+        (t, k) => `Learn about ${t.toLowerCase()}. ${k ? `Discover tips on ${k.split(',')[0].trim()}` : 'Practical tips and guides'} to help you succeed. Read now.`,
+        (t, k) => `A comprehensive guide to ${t.toLowerCase()}. ${k ? `Covering ${k.split(',').slice(0, 2).join(' and ').trim()}` : 'Step-by-step instructions'} for beginners and experts alike.`,
+        (t, k) => `Everything you need to know about ${t.toLowerCase()}. ${k ? `Tips for ${k.split(',')[0].trim()}` : 'Expert insights'} and practical advice in this in-depth article.`,
+      ],
+      service: [
+        (t, k) => `Professional ${t.toLowerCase()} services. ${k ? `Specializing in ${k.split(',')[0].trim()}` : 'Expert solutions'} tailored to your needs. Get in touch today.`,
+        (t, k) => `Looking for ${t.toLowerCase()}? I deliver ${k ? k.split(',')[0].trim() : 'high-quality results'} on time and within budget. View my portfolio and hire me.`,
+        (t, k) => `${t} that drives results. ${k ? `From ${k.split(',').slice(0, 2).join(' to ').trim()}` : 'End-to-end solutions'} — designed to grow your business.`,
+      ],
+      product: [
+        (t, k) => `Discover ${t.toLowerCase()}. ${k ? `Features include ${k.split(',').slice(0, 2).join(', ').trim()}` : 'Built for performance'}. Start today and see the difference.`,
+        (t, k) => `${t} — designed for ${k ? k.split(',')[0].trim() : 'modern professionals'}. Fast, reliable and easy to use. Try it now.`,
+      ],
+      landing: [
+        (t, k) => `${t}. ${k ? `Get ${k.split(',')[0].trim()}` : 'Get started'} today — simple, fast and effective. No hassle, just results.`,
+        (t, k) => `Ready for ${t.toLowerCase()}? ${k ? `We make ${k.split(',')[0].trim()} easy` : 'Start in seconds'}. Join thousands of satisfied users.`,
+      ],
+      about: [
+        (t, k) => `Learn about ${t}. ${k ? `Passionate about ${k.split(',')[0].trim()}` : 'A dedicated team'} building tools and services for the modern web.`,
+        (t, k) => `${t} — creating ${k ? k.split(',')[0].trim() : 'digital solutions'} for creators, developers and businesses. Our story and mission.`,
+      ],
+    };
+
+    document.getElementById('md-generate').addEventListener('click', () => {
+      const topic = document.getElementById('md-topic').value.trim();
+      const keywords = document.getElementById('md-keywords').value.trim();
+      const type = document.getElementById('md-type').value;
+
+      if (!topic) { showToast('Please enter a page topic.', 'error'); return; }
+
+      const fns = templates[type] || templates.blog;
+      const descriptions = fns.map(fn => {
+        let desc = fn(topic, keywords);
+        if (desc.length > 160) desc = desc.substring(0, 157) + '...';
+        return desc;
+      });
+
+      const listEl = document.getElementById('md-list');
+      listEl.innerHTML = descriptions.map((desc, i) => {
+        const len = desc.length;
+        const color = len <= 160 ? 'var(--color-success)' : 'var(--color-warning)';
+        return `<div class="result-panel">
+          <div class="result-panel__header">
+            <span class="result-panel__title">Option ${i + 1} <span style="font-weight:400;color:${color};margin-left:var(--space-2);">${len} chars</span></span>
+            <button class="btn btn--ghost btn--sm md-copy-btn" data-text="${desc.replace(/"/g, '&quot;')}">📋 Copy</button>
+          </div>
+          <div class="result-panel__body">
+            <p style="color:var(--color-text);line-height:var(--leading-relaxed);cursor:pointer;" class="md-select-preview">${desc}</p>
+          </div>
+        </div>`;
+      }).join('');
+
+      // Google preview with first description
+      document.getElementById('md-preview-title').textContent = topic + ' — Your Website';
+      document.getElementById('md-preview-desc').textContent = descriptions[0];
+      document.getElementById('md-results').style.display = 'block';
+
+      // Copy buttons
+      listEl.querySelectorAll('.md-copy-btn').forEach(btn => {
+        btn.addEventListener('click', () => copyToClipboard(btn.dataset.text));
+      });
+
+      // Click to preview
+      listEl.querySelectorAll('.md-select-preview').forEach(p => {
+        p.addEventListener('click', () => {
+          document.getElementById('md-preview-desc').textContent = p.textContent;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

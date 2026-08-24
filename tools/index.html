@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090d16">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2716%27 fill=%27%2306b6d4%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2756%27 font-family=%27Arial%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3EG%3C/text%3E%3C/svg%3E">
+  <title>Free Online Tools — Geeta Tech Hub</title>
+  <meta name="description" content="Browse all free online tools. Image tools, text tools, SEO tools, developer tools and more. No login required.">
+  <link rel="canonical" href="https://geetatechhub.com/tools/">
+  <meta property="og:title" content="Free Online Tools — Geeta Tech Hub">
+  <meta property="og:description" content="Browse all free online tools. Image, text, SEO, developer tools and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://geetatechhub.com/tools/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/styles/design-system.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/layout.css">
+  <link rel="stylesheet" href="/src/styles/tools.css">
+</head>
+<body>
+  <header class="header" id="site-header"></header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="/">Home</a>
+          <span class="breadcrumb__sep">›</span>
+          <span class="breadcrumb__current">Tools</span>
+        </div>
+        <h1 class="page-header__title">Free Online Tools</h1>
+        <p class="page-header__desc">Fast, simple and useful utilities. Pick a tool and get started — no login required.</p>
+      </div>
+    </section>
+
+    <section class="section section--sm">
+      <div class="container">
+        <!-- Search & Filter -->
+        <div class="tools-filters">
+          <div class="tools-search">
+            <div class="tools-search__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+            <input type="text" class="input" id="tools-search-input" placeholder="Search tools..." aria-label="Search tools">
+          </div>
+          <div class="category-pills" id="category-pills">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="grid grid-auto-fill" id="tools-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section section--sm" id="categories" style="background: var(--color-bg-alt);">
+      <div class="container">
+        <h2 class="section-title text-center" style="margin-bottom: var(--space-8);">Browse by Category</h2>
+        <div class="grid grid-3" id="categories-section-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module">
+    import { initHeader } from '/src/js/components/header.js';
+    import { initFooter } from '/src/js/components/footer.js';
+    import { renderToolCard } from '/src/js/components/tool-card.js';
+    import { TOOLS, CATEGORIES, getToolsByCategory, searchTools, getActiveCategories } from '/src/js/core/tool-registry.js';
+    import { debounce } from '/src/js/core/utils.js';
+
+    initHeader();
+    initFooter();
+
+    const grid = document.getElementById('tools-grid');
+    const searchInput = document.getElementById('tools-search-input');
+    const pillsContainer = document.getElementById('category-pills');
+    let activeCategory = 'all';
+
+    // Check URL hash for initial category
+    const hash = window.location.hash.replace('#', '');
+    if (hash && CATEGORIES.find(c => c.slug === hash)) {
+      activeCategory = hash;
+    }
+
+    // Render category pills
+    function renderPills() {
+      const cats = getActiveCategories().filter(c => !c.comingSoon);
+      pillsContainer.innerHTML = cats.map(cat => `
+        <button class="category-pill ${cat.slug === activeCategory ? 'active' : ''}" data-category="${cat.slug}">
+          ${cat.icon} ${cat.name}
+        </button>
+      `).join('');
+
+      pillsContainer.querySelectorAll('.category-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.dataset.category;
+          renderPills();
+          renderTools();
+        });
+      });
+    }
+
+    // Render tools grid
+    function renderTools() {
+      const query = searchInput.value.trim();
+      let tools;
+      if (query) {
+        tools = searchTools(query);
+        if (activeCategory !== 'all') {
+          tools = tools.filter(t => t.categorySlug === activeCategory);
+        }
+      } else {
+        tools = getToolsByCategory(activeCategory);
+      }
+      grid.innerHTML = tools.length
+        ? tools.map(renderToolCard).join('')
+        : '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--color-text-muted);"><p style="font-size:1.125rem;">No tools found</p><p style="font-size:0.875rem;margin-top:0.5rem;">Try a different search term or category.</p></div>';
+    }
+
+    // Render categories section
+    const catGrid = document.getElementById('categories-section-grid');
+    const allCats = CATEGORIES.filter(c => c.slug !== 'all');
+    catGrid.innerHTML = allCats.map(cat => `
+      <a href="#${cat.slug}" class="card card--interactive category-card" onclick="event.preventDefault(); document.getElementById('category-pills').querySelector('[data-category=${cat.slug}]')?.click() || window.scrollTo({top:0,behavior:'smooth'});">
+        <div class="category-card__icon" style="background:${cat.color}20;color:${cat.color};">${cat.icon}</div>
+        <div>
+          <div class="category-card__name">${cat.name}${cat.comingSoon ? ' <span class="badge badge--new" style="font-size:0.65rem;padding:2px 8px;">Coming Soon</span>' : ''}</div>
+          <div class="category-card__count">${cat.comingSoon ? 'Tools coming soon' : TOOLS.filter(t => t.categorySlug === cat.slug && t.status === 'live').length + ' tools available'}</div>
+        </div>
+      </a>
+    `).join('');
+
+    // Search listener
+    searchInput.addEventListener('input', debounce(() => renderTools(), 200));
+
+    // Initial render
+    renderPills();
+    renderTools();
+  </script>
+</body>
+</html>
